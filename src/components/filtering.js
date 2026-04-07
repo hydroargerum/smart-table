@@ -11,7 +11,7 @@ export function initFiltering(elements, indexes) {
             ...Object.values(indexes[elementName])      // формируем массив имён, значений опций
                       .map(name => {                    // используйте name как значение и текстовое содержимое
                         const tag = document.createElement('option');
-                        tag.value = name;
+                        tag.setAttribute('value', name);
                         tag.textContent = name;
                         return tag; // @todo: создать и вернуть тег опции
                       })
@@ -20,6 +20,7 @@ export function initFiltering(elements, indexes) {
     return (data, state, action) => {
         // @todo: #4.2 — обработать очистку поля
         if (action && action.name === 'clear') {    // Если событие = clear, то ищем родителя кнопки, вызвавшей событие
+            
             const parentAction = action.parentElement;
             if (parentAction) {
                 const elInput = parentAction.querySelector('input'); // поиск input рядом с нашей кнопкой
@@ -29,6 +30,7 @@ export function initFiltering(elements, indexes) {
                 }
             }
         }
+
         // @todo: #4.5 — отфильтровать данные используя компаратор
         return data.filter(row => compare(row, state));
     }

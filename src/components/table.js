@@ -10,11 +10,13 @@ import {cloneTemplate} from "../lib/utils.js";
 export function initTable(settings, onAction) {
     const {tableTemplate, rowTemplate, before, after} = settings;
     const root = cloneTemplate(tableTemplate);
+
     // @todo: #1.2 —  вывести дополнительные шаблоны до и после таблицы
     before.reverse().forEach(subName => {                   // перебираем нужный массив идентификаторов
         root[subName] = cloneTemplate(subName);             // клонируем и получаем объект, сохраняем в таблице
-        root.container.append(root[subName].container);     // добавляем к таблице после (append) или до (prepend)
+        root.container.prepend(root[subName].container);     // добавляем к таблице после (append) или до (prepend)
     });
+
     after.forEach(subName => {                              // перебираем нужный массив идентификаторов
         root[subName] = cloneTemplate(subName);             // клонируем и получаем объект, сохраняем в таблице
         root.container.append(root[subName].container);     // добавляем к таблице после (append) или до (prepend)
@@ -24,9 +26,9 @@ export function initTable(settings, onAction) {
     root.container.addEventListener('change', (e) => onAction());
     root.container.addEventListener('reset', (e) => setTimeout(onAction()));
     root.container.addEventListener('submit', (e) => {
-        e.preventDefault;
+        e.preventDefault();
         onAction(e.submitter);
-    })
+    });
 
     const render = (data) => {
         // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
@@ -39,7 +41,6 @@ export function initTable(settings, onAction) {
             })
             return row.container;
         })
-        console.log(nextRows);
         root.elements.rows.replaceChildren(...nextRows);
     }
 

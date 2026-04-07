@@ -25,11 +25,12 @@ function collectState() {
     const state = processFormData(new FormData(sampleTable.container));
     const rowsPerPage = parseInt(state.rowsPerPage);    // приведём количество страниц к числу
     const page = parseInt(state.page ?? 1);                // номер страницы по умолчанию 1 и тоже число
-
+    const total = [parseFloat(state.totalFrom), parseFloat(state.totalTo)];
     return {                                            // расширьте существующий return вот так
         ...state,
         rowsPerPage,
-        page
+        page,
+        total
     };
 }
 
@@ -42,12 +43,11 @@ function render(action) {
     let result = [...data]; // копируем для последующего изменения
 
     // @todo: использование
-    // result = applySearching(result, state, action);
+    result = applySearching(result, state, action);
     result = applyFiltering(result, state, action);
     result = applySorting(result, state, action);
     result = applyPagination(result, state, action);
-
-    sampleTable.render(result)
+    sampleTable.render(result);
 }
 
 const sampleTable = initTable({
