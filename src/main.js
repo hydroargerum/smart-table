@@ -14,8 +14,7 @@ import { initFiltering } from './components/filtering.js';
 import { initSearching } from './components/searching.js';
 
 // Исходные данные используемые в render()
-// const {data, ...indexes} = initData(sourceData);
-const api = initData(sourceData); //1.1. Вызов initData(sourceData) присваиваем константе API.
+const api = initData(); //1.1. Вызов initData(sourceData) присваиваем константе API. + sourceData убран
 
 /**
  * Сбор и обработка полей из таблицы
