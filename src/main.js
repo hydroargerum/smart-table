@@ -95,4 +95,4 @@ async function init() {
     });
 }
 
-init().then(render); // after Step 1. p.4. "..Теперь, если всё сделано правильно, вы должны снова видеть все данные вашей таблицы.." - Lie, talk, and provocation
+init().then(render);
